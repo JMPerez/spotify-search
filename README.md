@@ -1,4 +1,4 @@
-# Cover art polymer element
+# Spotify search polymer element
 
 This is an example of a [Polymer Web Component](www.polymer-project.org) that implements a Search component for searching tracks, albums and artists on Spotify. It is useful in combination with other components such as the [Spotify Preview Button](https://github.com/rafeca/spotify-previewbutton).
 
@@ -27,7 +27,7 @@ in your page. Set the `query` property to a certain search query and `type` to t
 
 The component is more useful when used with other Polymer components. For instance, you could render an input element that will send the value to the component. Then, you can take the output and pass it to a Spotify Preview Button:
 
-```
+```html
 <polymer-element name="my-app">
   <template>
 	  <style>
