@@ -30,25 +30,25 @@ The component is more useful when used with other Polymer components. For instan
 ```html
 <polymer-element name="my-app">
   <template>
-	  <style>
-	    core-input {
-	      border: 1px solid #333;
-	    }
-	  </style>
-	  <core-input id="input" placeholder="Type the name of a track"></core-input>
-	  <spotify-search query="{{ $.input.value }}" id="search" type="track"></spotify-search>
-	  <spotify-previewbutton uri="{{ $.search.results[0].uri }}"></spotify-previewbutton>
-	</template>
+    <style>
+      core-input {
+        border: 1px solid #333;
+      }
+    </style>
+    <core-input id="input" placeholder="Type the name of a track"></core-input>
+    <spotify-search query="{{ $.input.value }}" id="search" type="track"></spotify-search>
+    <spotify-previewbutton uri="{{ $.search.results[0].uri }}"></spotify-previewbutton>
+  </template>
 
-	<script>
-	 (function(Polymer) {
-	  'use strict';
+  <script>
+   (function(Polymer) {
+    'use strict';
 
-	  Polymer('my-app', {
-	  });
+    Polymer('my-app', {
+    });
 
-	})(window.Polymer);
-	</script>
+  })(window.Polymer);
+  </script>
 
 </polymer-element>
 
