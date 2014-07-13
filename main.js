@@ -21,9 +21,29 @@
      */
     type: 'track',
 
+    /**
+     * The maximum number of objects to return.
+     *
+     * @property limit
+     * @type number
+     * @default null
+     */
+    limit: null,
+
+    /**
+     * The index of the first object to return.
+     *
+     * @property offset
+     * @type number
+     * @default null
+     */
+    offset: null,
+
     observe: {
       query: 'search',
-      type: 'search'
+      type: 'search',
+      limit: 'search',
+      offset: 'search'
     },
 
     search: function() {
@@ -34,7 +54,9 @@
         var req = new XMLHttpRequest();
         req.open('GET', 'https://api.spotify.com/v1/search/?type=' +
           encodeURIComponent(this.type) +
-          '&query=' + encodeURIComponent(this.query),
+          '&query=' + encodeURIComponent(this.query) +
+          (this.limit !== null ? '&limit=' + this.limit : '') +
+          (this.offset !== null ? '&offset=' + this.offset : ''),
           true);
 
         req.onreadystatechange = function() {

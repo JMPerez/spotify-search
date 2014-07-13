@@ -1,6 +1,6 @@
 {
   "name": "spotify-search",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Polymer Web component for searching tracks, albums and artists on Spotify",
   "dependencies": {
     "polymer": "~0.3"

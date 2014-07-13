@@ -8,7 +8,16 @@ You just need to include the polymer platform and this element in the head of
 your html page.
 
 Then, you can start using the `spotify-search` element as any other HTML element
-in your page. Set the `query` property to a certain search query and `type` to the type of entity you want to fetch (`track` is set as the default type). The search results are available in an exposed `results` property:
+in your page.
+
+Input parameters, through attributes:
+
+- `query` (required): The search query's keywords
+- `type` (optional, default: 'tracks'): The type of entity you want to fetch.
+- `limit` (optional): The maximum number of objects to return. Check the default value on the [Spotify Web API documentation page](https://developer.spotify.com/web-api/search-item/).
+- `offset` (optional, defaults to 0): The index of the first object to return.
+
+The search results are available in an exposed `results` property:
 
 ```html
 <html>
