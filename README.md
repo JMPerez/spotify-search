@@ -1,6 +1,6 @@
 # Spotify search polymer element
 
-This is an example of a [Polymer Web Component](www.polymer-project.org) that implements a Search component for searching tracks, albums and artists on Spotify. It is useful in combination with other components such as the [Spotify Preview Button](https://github.com/rafeca/spotify-previewbutton).
+This is an example of a [Polymer Web Component](http://www.polymer-project.org) that implements a Search component for searching tracks, albums and artists on Spotify. It is useful in combination with other components such as the [Spotify Preview Button](https://github.com/rafeca/spotify-previewbutton).
 
 ## Usage
 
