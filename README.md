@@ -29,7 +29,7 @@ The search results are available in an exposed `results` property:
 <body>
   <spotify-search query="u2" type="artist"></spotify-search>
 </body>
-</script>
+</html>
 ```
 
 ## Advanced Usage
