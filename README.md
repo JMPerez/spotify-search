@@ -17,7 +17,7 @@ Input parameters, through attributes:
 - `limit` (optional): The maximum number of objects to return. Check the default value on the [Spotify Web API documentation page](https://developer.spotify.com/web-api/search-item/).
 - `offset` (optional, defaults to 0): The index of the first object to return.
 
-The search results are available in an exposed `results` property:
+The search results are available in an exposed `result` property:
 
 ```html
 <html>
@@ -46,7 +46,7 @@ The component is more useful when used with other Polymer components. For instan
     </style>
     <core-input id="input" placeholder="Type the name of a track"></core-input>
     <spotify-search query="{{ $.input.value }}" id="search" type="track"></spotify-search>
-    <spotify-previewbutton uri="{{ $.search.results[0].uri }}"></spotify-previewbutton>
+    <spotify-previewbutton uri="{{ $.search.result[0].uri }}"></spotify-previewbutton>
   </template>
 
   <script>

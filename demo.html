@@ -2,13 +2,53 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>spotify search</title>
+    <title>Spotify Search Demo</title>
     <script type="text/javascript" src="../platform/platform.js"></script>
-    <link rel="import" href="index.html">
+    <link rel="import" href="spotify-search.html">
+    <style>
+      * {margin: 0;padding: 0;}
+      html, button, input, select, textarea {font-family: sans-serif;}
+      body {padding: 2em;}
+      .media {padding-bottom: 1em;}
+      .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+      .media .img {float:left; margin-right: 10px;}
+      .media .img img{display:block;}
+      .media .imgExt{float:right; margin-left: 10px;}
+      h1, h2, p {padding: 0 0 .5em 0;}
+      input {padding: 0.5em; margin-bottom: 1em;}
+      ul {list-style: none;}
+    </style>
   </head>
   <body>
     <h1>Spotify search demo</h1>
-    <p>This polymer web component doesn't have any uri. Check the console to see the request to the Spotify Web API</p>
-    <spotify-search query="show must go on"></spotify-search>
+    <p>The spotify-search component takes the value from the input, and we take its output to render a list of items.</p>
+    <p>Take a look at the source of the example for more information. Note that the &lt;input&gt; plus the JavaScript code be replaced with a &lt;core-input&gt; polymer component.</p>
+    <template id="my-template" is="auto-binding">
+      <input type="text" placeholder="Type a track to search" id="input">
+      <spotify-search id="search" query="{{queryTerm}}" limit="5"/>
+      <ul>
+        <template repeat="{{$.search.result}}">
+          <li class="media">
+            <div class="img">
+            <img src="{{album.images[album.images.length - 1].url}}" width="64" height="64">
+          </div>
+          <div class="bd">
+            <h2>{{name}}</h2>
+            <p>By "{{artists[0].name}}" in album "{{album.name}}"</p>
+          </div>
+          </li>
+        </template>
+      </ul>
+    </template>
+    <script>
+    var t = document.querySelector('#my-template');
+    t.addEventListener('template-bound', function() {
+      var spotifySearch = document.querySelector('spotify-search');    
+      var input = document.querySelector('input');
+      input.addEventListener('keyup', function(e) {
+        t.queryTerm = this.value;
+      }, false);
+    });
+  </script>
   </body>
 </html>
