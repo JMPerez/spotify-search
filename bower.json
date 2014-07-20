@@ -5,7 +5,7 @@
     "José M. Pérez"
   ],
   "description": "Polymer Web component for searching tracks, albums and artists on Spotify",
-  "keywords": ["web-component, web-components, polymer, spotify, search"],
+  "keywords": ["web-component", "web-components", "polymer", "spotify", "search"],
   "main": "spotify-search.html",
   "license": "MIT",
   "homepage": "https://github.com/JMPerez/spotify-search/",
