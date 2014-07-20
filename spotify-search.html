@@ -5,9 +5,9 @@ Element providing an encapsulation for the search endpoint of the Spotify Web AP
 
 ##### Example
 
-		<spotify-search query="blur" type="artist" limit="5" result="{{result}}"/></spotify-search>
+        <spotify-search query="blur" type="artist" limit="5" result="{{result}}"/></spotify-search>
 
-		<div>Result: {{result.length}} results}}</div>
+        <div>Result: {{result.length}} results}}</div>
 
 @element spotify-search
 @blurb Element providing an encapsulation for the search endpoint of the Spotify Web API.
@@ -16,109 +16,119 @@ Element providing an encapsulation for the search endpoint of the Spotify Web AP
 -->
 <polymer-element name="spotify-search" attributes="query type limit offset result">
 
-	<script>
+    <script>
 
-	  Polymer('spotify-search', {
-
-	    /**
-	     * The search query.
-	     *
-	     * @property query
-	     * @type string
-	     * @default null
-	     */
-	    query: null,
-
-	    /**
-	     * The search type.
-	     *
-	     * @property type
-	     * @type string
-	     * @default 'track'
-	     */
-	    type: 'track',
-
-	    /**
-	     * The maximum number of objects to return.
-	     *
-	     * @property limit
-	     * @type number
-	     * @default null
-	     */
-	    limit: null,
-
-	    /**
-	     * The index of the first object to return.
-	     *
-	     * @property offset
-	     * @type number
-	     * @default null
-	     */
-	    offset: null,
+      Polymer('spotify-search', {
 
         /**
-	     * The search result.
-	     *
-	     * @attribute result
-	     * @type object
-	     */
+         * The search query.
+         *
+         * @property query
+         * @type string
+         * @default null
+         */
+        query: null,
 
-		/**
-		 * The `result` event is fired whenever the result are obteined.
-		 * 
-		 * @event result
-		 * @param {Object} detail
-		 *   @param {Array<Object>} detail.value The list of items.
-		*/
+        /**
+         * The search type.
+         *
+         * @property type
+         * @type string
+         * @default 'track'
+         */
+        type: 'track',
+
+        /**
+         * The maximum number of objects to return.
+         *
+         * @property limit
+         * @type number
+         * @default null
+         */
+        limit: null,
+
+        /**
+         * The index of the first object to return.
+         *
+         * @property offset
+         * @type number
+         * @default null
+         */
+        offset: null,
+
+        /**
+         * The search result.
+         *
+         * @attribute result
+         * @type object
+         */
+
+        /**
+         * The `result` event is fired whenever the result are obteined.
+         * 
+         * @event result
+         * @param {Object} detail
+         *   @param {Array<Object>} detail.value The list of items.
+        */
       
-	    observe: {
-	      query: 'search',
-	      type: 'search',
-	      limit: 'search',
-	      offset: 'search'
-	    },
+        observe: {
+          query: 'search',
+          type: 'search',
+          limit: 'search',
+          offset: 'search'
+        },
 
-	    search: function() {
-	      var that = this;
+        _previousRequest: null,
 
-	      if (this.query) {
+        search: function() {
+          var that = this;
 
-	        var req = new XMLHttpRequest();
-	        req.open('GET', 'https://api.spotify.com/v1/search/?type=' +
-	          encodeURIComponent(this.type) +
-	          '&query=' + encodeURIComponent(this.query) +
-	          (this.limit !== null ? '&limit=' + this.limit : '') +
-	          (this.offset !== null ? '&offset=' + this.offset : ''),
-	          true);
+          if (this.query) {
 
-	        req.onreadystatechange = function() {
-	          if (req.readyState === 4) {
-	            var data = null;
-	            try {
-	              data = req.responseText ? JSON.parse(req.responseText) : '';
-	            } catch (e) {}
+            // cancel previous pending request, if any
+            if (this._previousRequest && this._previousRequest.readystate !== 4) {
+                this._previousRequest.abort();
+            }
 
-	            if (req.status === 200) {
-	              that.gotResult(data);
-	            }
-	          }
-	        };
+            var req = new XMLHttpRequest();
 
-	        req.send(null);
-	      }
-	    },
+            this._previousRequest = req;
 
-	    gotResult: function(result) {
-	      var propertyName = this.type + 's';
-	      if (result && result[propertyName] && result[propertyName].items) {
-	        this.result = result[propertyName].items;
-	      } else {
-	        this.result = [];
-	      }
-	      this.fire('result', {value: this.result});
-	    }
-	  });
+            req.open('GET', 'https://api.spotify.com/v1/search/?type=' +
+              encodeURIComponent(this.type) +
+              '&query=' + encodeURIComponent(this.query) +
+              (this.limit !== null ? '&limit=' + this.limit : '') +
+              (this.offset !== null ? '&offset=' + this.offset : ''),
+              true);
 
-	</script>
+            req.onreadystatechange = function() {
+              if (req.readyState === 4) {
+                var data = null;
+                try {
+                  data = req.responseText ? JSON.parse(req.responseText) : '';
+                } catch (e) {}
+
+                if (req.status === 200) {
+                  that.gotResult(data);
+                }
+              }
+            };
+
+            req.send(null);
+          }
+        },
+
+        gotResult: function(result) {
+          var propertyName = this.type + 's';
+          if (result && result[propertyName] && result[propertyName].items) {
+            this.result = result[propertyName].items;
+          } else {
+            this.result = [];
+          }
+          this.fire('result', {value: this.result});
+        }
+      });
+
+    </script>
 
 </polymer-element>
