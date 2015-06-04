@@ -1,19 +1,30 @@
 {
   "name": "spotify-search",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "authors": [
     "José M. Pérez"
   ],
-  "description": "Polymer Web component for searching tracks, albums and artists on Spotify",
-  "keywords": ["web-component", "web-components", "polymer", "spotify", "search"],
+  "description": "Polymer Web component for searching tracks, albums and artists on Spotify.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "spotify",
+    "search"
+  ],
   "main": "spotify-search.html",
   "license": "MIT",
   "homepage": "https://github.com/JMPerez/spotify-search/",
   "ignore": [
-    "**/.*"
+    "/.*",
+    "/test/",
+    "/demo/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.3",
-    "polymer-test-tools": "Polymer/polymer-test-tools#~0.3.3"
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
   }
 }

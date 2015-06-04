@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../spotify-search.html">
+  </head>
+  <body>
+
+    <spotify-search></spotify-search>
+
+    <script>
+      var myEl = document.querySelector('spotify-search');
+
+      suite('<spotify-search>', function() {
+
+        test('defines default properties', function() {
+          assert.equal(myEl.type, 'track');
+          assert.equal(myEl.limit, null);
+          assert.equal(myEl.offset, null);
+        });
+
+        test('makes a request when changing the query', function(done) {
+          myEl.addEventListener('spotify-search-result', function(event) {
+            assert.equal(event.detail.value.length > 0, true);
+            assert.equal(event.detail.value[0].type, 'album');
+            done();
+          });
+          myEl.type = 'album';
+          myEl.query = 'abba';
+        });
+      });
+    </script>
+
+  </body>
+</html>
