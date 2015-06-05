@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>spotify-search Demo</title>
+    <style>
+      * {margin: 0;padding: 0;}
+      html, button, input, select, textarea {font-family: sans-serif;}
+      body {padding: 2em;}
+      .media {padding-bottom: 1em;}
+      .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+      .media .img {float:left; margin-right: 10px;}
+      .media .img img{display:block;}
+      h1, h2, p {padding: 0 0 .5em 0;}
+      input {padding: 0.5em; margin-bottom: 1em;}
+      ul {list-style: none;}
+    </style>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../spotify-search.html">
+  </head>
+  <body>
+
+    <h1>Spotify search demo</h1>
+    <p>The spotify-search component takes the value from the input, and we take its output to render a list of items.</p>
+    <p>Take a look at the source of the example for more information. Note that the &lt;input&gt; plus the JavaScript code be replaced with a &lt;core-input&gt; polymer component.</p>
+
+    <template is="dom-bind" id="my-template">
+
+      <input type="text" placeholder="Type a track to search" id="input" value="{{queryTerm::input}}">
+      <spotify-search id="search" query="[[queryTerm]]" limit="5" result="{{data}}"/>
+      <ul>
+        <template is="dom-repeat" items="{{data}}">
+          <li class="media">
+            <div class="img">
+            <img src="{{item.album.images.2.url}}" width="64" height="64">
+          </div>
+          <div class="bd">
+            <h2>{{item.name}}</h2>
+            <p>By <span>{{item.artists.0.name}}</span> in album <span>{{item.album.name}}</span></p>
+          </div>
+          </li>
+        </template>
+      </ul>
+    </template>
+  </body>
+</html>

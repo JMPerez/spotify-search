@@ -1,0 +1,152 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Element providing an encapsulation for the search endpoint of the Spotify Web API.
+
+##### Example
+
+        <spotify-search query="blur" type="artist" limit="5" result="{{result}}"/></spotify-search>
+
+        <div>Result: <span>{{result.length}}</span> results</div>
+
+@element spotify-search
+@blurb Element providing an encapsulation for the search endpoint of the Spotify Web API.
+@status alpha
+@homepage https://github.com/JMPerez/spotify-search
+
+-->
+<dom-module id="spotify-search">
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'spotify-search',
+
+    properties: {
+
+      /**
+       * The search query.
+       *
+       * @type string
+       * @default null
+       */
+      query: {
+        type: String,
+        observer: 'search',
+        value: null
+      },
+
+      /**
+       * The search type.
+       *
+       * @type string
+       * @default 'track'
+       */
+      type: {
+        type: String,
+        value: 'track'
+      },
+
+      /**
+       * The maximum number of objects to return.
+       *
+       * @type number
+       * @default null
+       */
+      limit: {
+        type: Number,
+        value: null
+      },
+
+      /**
+       * The index of the first object to return.
+       *
+       * @type number
+       * @default null
+       */
+      offset: {
+        type: Number,
+        value: null
+      },
+
+      /**
+       * The search results from the Spotify Web API
+       * 
+       * @type {Array}
+       * @default []
+       */
+      result: {
+        type: Array,
+        value: [],
+        notify: true
+      }
+
+    },
+
+    // Element Lifecycle
+
+    ready: function() {
+      this.search();
+    },
+
+    // Element Behavior
+
+    /**
+     * The `spotify-search-result` event is fired whenever the results are obtained.
+     *
+     * @event spotify-search-result
+     */
+
+    search: function() {
+      var that = this;
+
+      if (this.query && this.type) {
+
+        // cancel previous pending request, if any
+        if (this._previousRequest && this._previousRequest.readystate !== 4) {
+            this._previousRequest.abort();
+        }
+
+        var req = new XMLHttpRequest();
+
+        this._previousRequest = req;
+
+        req.open('GET', 'https://api.spotify.com/v1/search/?type=' +
+          encodeURIComponent(this.type) +
+          '&query=' + encodeURIComponent(this.query) +
+          (this.limit !== null ? '&limit=' + this.limit : '') +
+          (this.offset !== null ? '&offset=' + this.offset : ''),
+          true);
+
+        req.onreadystatechange = function() {
+          if (req.readyState === 4) {
+            var data = null;
+            try {
+              data = req.responseText ? JSON.parse(req.responseText) : '';
+            } catch (e) {}
+
+            if (req.status === 200) {
+              that.gotResult(data);
+            }
+          }
+        };
+
+        req.send(null);
+      }
+    },
+
+    gotResult: function(result) {
+      var propertyName = this.type + 's';
+      if (result && result[propertyName] && result[propertyName].items) {
+        this.result = result[propertyName].items;
+      } else {
+        this.result = [];
+      }
+      this.fire('spotify-search-result', {value: this.result});
+    }
+
+  });
+
+</script>
