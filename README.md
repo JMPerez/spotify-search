@@ -2,8 +2,8 @@
 
 This is an example of a [Polymer Web Component](http://www.polymer-project.org) that implements a Search component for searching tracks, albums and artists on Spotify. It is useful in combination with other components such as the [Spotify Preview Button](https://github.com/rafeca/spotify-previewbutton).
 
-- [Demo](http://jmperezperez.com/spotify-search/spotify-search/demo.html)
-- [Documentation](http://jmperezperez.com/spotify-search/spotify-search/)
+- [Demo](http://jmperezperez.com/spotify-search/components/spotify-search/demo/)
+- [Documentation](http://jmperezperez.com/spotify-search/)
 
 ## Usage
 
